@@ -54,6 +54,8 @@ def logout_view(request):
     messages.info(request, "Has salido del sistema")
     return redirect(index)
 
+@login_required
+@permission_required('administrativo.view_estudiante')
 def obtener_estudiante(request, id):
     """
         Listar los registros del modelo Estudiante,
@@ -91,7 +93,7 @@ def crear_estudiante(request):
     return render(request, 'crearEstudiante.html', diccionario)
 
 
-@login_required(login_url='/entrando/login/')
+@login_required # (login_url='/entrando/login/')
 @permission_required('administrativo.change_estudiante',)
 def editar_estudiante(request, id):
     """
@@ -110,6 +112,8 @@ def editar_estudiante(request, id):
     return render(request, 'editarEstudiante.html', diccionario)
 
 
+@login_required
+@permission_required('administrativo.delete_estudiante')
 def eliminar_estudiante(request, id):
     """
     """
@@ -125,6 +129,8 @@ def en_grupo(nombre):
     return user_passes_test(predicate)
 
 @en_grupo('supervisor')
+@login_required
+@permission_required('administrativo.add_numero_telefonico')
 def crear_numero_telefonico(request):
     """
     """
@@ -142,6 +148,8 @@ def crear_numero_telefonico(request):
     return render(request, 'crearNumeroTelefonico.html', diccionario)
 
 
+@login_required
+@permission_required('administrativo.change_numero_telefonico')
 def editar_numero_telefonico(request, id):
     """
     """
@@ -158,6 +166,8 @@ def editar_numero_telefonico(request, id):
 
     return render(request, 'crearNumeroTelefonico.html', diccionario)
 
+@login_required
+@permission_required('administrativo.add_numero_telefonico')
 def crear_numero_telefonico_estudiante(request, id):
     """
     """
